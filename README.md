@@ -16,6 +16,8 @@ git clone git@github.com:Mr-Second/CommonCppLibrary.git
 
 > Pretty Printer for Modern C++
 
+**Usage:**
+
 ```cpp
 #include "pprint.hpp"
 #include <iostream>
@@ -33,7 +35,7 @@ int main(int argc, char const *argv[])
 }
 ```
 
-**output**
+**Output**
 
 ```
 {
@@ -42,5 +44,62 @@ Tomorrow : 2
 }
 ```
 
+**[Dbg-Micro](https://github.com/Mr-Second/dbg-macro)**
+
+> *A macro for `printf`-style debugging fans.*
+
+**Usage:**
+
+```cpp
+#include "dbg.h"
+#include <vector>
+
+// You can use "dbg(..)" in expressions:
+int factorial(int n)
+{
+    if (dbg(n <= 1))
+    {
+        return dbg(1);
+    }
+    else
+    {
+        return dbg(n * factorial(n - 1));
+    }
+}
+int main()
+{
+    std::string message = "hello";
+    dbg(message); // [example.cpp:15 (main)] message = "hello"
+                  // (std::__cxx11::basic_string<char>)
+    const int a = 2;
+    const int b = dbg(3 * a) + 1; // [example.cpp:18 (main)] 3 * a = 6 (int)
+    std::vector<int> numbers{b, 13, 42};
+    dbg(numbers); // [example.cpp:21 (main)] numbers = {7, 13, 42} (size: 3)
+                  // (std::vector<int>)
+    dbg("this line is executed"); // [example.cpp:23 (main)] this line is
+                                  // executed
+    factorial(4);
+    return 0;
+}
+```
+
+**OutPut:**
+
+```cpp
+[main.cpp:20 (main)] message = "hello" (std::string)
+[main.cpp:24 (main)] 3 * a = 6 (int)
+[main.cpp:27 (main)] numbers = {7, 13, 42} (std::vector<int>)
+[main.cpp:30 (main)] this line is executed
+[main.cpp:7 (factorial)] n <= 1 = false (bool)
+[main.cpp:7 (factorial)] n <= 1 = false (bool)
+[main.cpp:7 (factorial)] n <= 1 = false (bool)
+[main.cpp:7 (factorial)] n <= 1 = true (bool)
+[main.cpp:9 (factorial)] 1 = 1 (int)
+[main.cpp:13 (factorial)] n * factorial(n - 1) = 2 (int)
+[main.cpp:13 (factorial)] n * factorial(n - 1) = 6 (int)
+[main.cpp:13 (factorial)] n * factorial(n - 1) = 24 (int)
+```
+
 ## License
+
 CommonCppLibrary is MIT licensed.
